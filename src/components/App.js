@@ -28,7 +28,13 @@ class App extends Component {
     this.setState({ posts: postsData.data });
   }
 
-  updatePost() {}
+  async updatePost(id, text) {
+    await axios
+      .put(`https://practiceapi.devmountain.com/api/posts?id=${id}`, { text })
+      .then((res) => {
+        this.setState({ posts: res.data });
+      });
+  }
 
   deletePost() {}
 
@@ -44,7 +50,13 @@ class App extends Component {
         <section className="App__content">
           <Compose />
           {posts.map((data, index) => (
-            <Post key={index} date={data.date} text={data.text} />
+            <Post
+              key={index}
+              id={data.id}
+              date={data.date}
+              text={data.text}
+              updatePost={this.updatePost}
+            />
           ))}
         </section>
       </div>
