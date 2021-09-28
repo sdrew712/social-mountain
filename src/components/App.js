@@ -55,7 +55,7 @@ class App extends Component {
               id={data.id}
               date={data.date}
               text={data.text}
-              updatePost={this.updatePost}
+              updatePostFn={this.updatePost}
             />
           ))}
         </section>
