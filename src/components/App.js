@@ -43,7 +43,7 @@ class App extends Component {
 
         <section className="App__content">
           <Compose />
-          {this.state.posts.map((data, index) => (
+          {posts.map((data, index) => (
             <Post key={index} date={data.date} text={data.text} />
           ))}
         </section>
