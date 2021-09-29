@@ -36,12 +36,19 @@ class App extends Component {
       });
   }
 
-  deletePost() {}
+  async deletePost(id) {
+    await axios
+      .delete(`https://practiceapi.devmountain.com/api/posts?id=${id}`)
+      .then((res) => {
+        this.setState({ posts: res.data });
+      });
+  }
 
   createPost() {}
 
   render() {
     const { posts } = this.state;
+    // this.deletePost(6936);
 
     return (
       <div className="App__parent">
@@ -56,6 +63,7 @@ class App extends Component {
               date={data.date}
               text={data.text}
               updatePostFn={this.updatePost}
+              deletePostFn={this.deletePost}
             />
           ))}
         </section>
