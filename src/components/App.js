@@ -44,18 +44,23 @@ class App extends Component {
       });
   }
 
-  createPost() {}
+  async createPost(text) {
+    await axios
+      .post(`https://practiceapi.devmountain.com/api/posts/`, { text })
+      .then((res) => {
+        this.setState({ posts: res.data });
+      });
+  }
 
   render() {
     const { posts } = this.state;
-    // this.deletePost(6936);
 
     return (
       <div className="App__parent">
         <Header />
 
         <section className="App__content">
-          <Compose />
+          <Compose createPostFn={this.createPost} />
           {posts.map((data, index) => (
             <Post
               key={index}
