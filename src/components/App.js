@@ -22,43 +22,65 @@ class App extends Component {
   }
 
   async componentDidMount() {
-    const postsData = await axios.get(
-      "https://practiceapi.devmountain.com/api/posts"
-    );
+    try {
+      const postsData = await axios.get(
+        "https://practiceapi.devmountain.com/api/posts"
+      );
 
-    this.setState({ posts: postsData.data });
+      this.setState({ posts: postsData.data });
+    } catch (err) {
+      console.error(err);
+    }
   }
 
   async updatePost(id, text) {
-    await axios
-      .put(`https://practiceapi.devmountain.com/api/posts?id=${id}`, { text })
-      .then((res) => {
-        this.setState({ posts: res.data });
-      });
+    try {
+      const postData = await axios.put(
+        `https://practiceapi.devmountain.com/api/posts?id=${id}`,
+        { text }
+      );
+      this.setState({ posts: postData.data });
+    } catch (err) {
+      console.error(err);
+    }
   }
 
-  async deletePost(id) {
-    await axios
-      .delete(`https://practiceapi.devmountain.com/api/posts?id=${id}`)
-      .then((res) => {
-        this.setState({ posts: res.data });
-      });
+  deletePost(id) {
+    try {
+      axios
+        .delete(`https://practiceapi.devmountain.com/api/posts?id=${id}`)
+        .then((res) => {
+          this.setState({ posts: res.data });
+        });
+    } catch (err) {
+      console.error(err);
+    }
   }
 
   async createPost(text) {
-    await axios
-      .post(`https://practiceapi.devmountain.com/api/posts/`, { text })
-      .then((res) => {
-        this.setState({ posts: res.data });
-      });
+    try {
+      await axios
+        .post(`https://practiceapi.devmountain.com/api/posts/`, { text })
+        .then((res) => {
+          this.setState({ posts: res.data });
+        });
+    } catch (err) {
+      console.error(err);
+    }
   }
 
   async searchPost(text) {
-    await axios
-      .get(`https://practiceapi.devmountain.com/api/posts/filter?text=${text}`)
-      .then((res) => {
-        this.setState({ posts: res.data });
-      });
+    try {
+      await axios
+        .get(
+          `https://practiceapi.devmountain.com/api/posts/filter?text=${text}`
+        )
+        .then((res) => {
+          this.setState({ posts: res.data });
+        });
+    } catch (err) {
+      console.error(err);
+    }
   }
 
   render() {
